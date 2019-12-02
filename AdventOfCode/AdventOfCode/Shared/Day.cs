@@ -37,6 +37,12 @@ namespace AdventOfCode.Shared
             }
         }
 
+        public void Deselect()
+        {
+            Console.WriteLine("Press Key to go back to main menu");
+            Console.ReadKey();
+            Console.Clear();
+        }
         public string GetFilePath()
         {
             Console.WriteLine($"What is the path for input file?");
