@@ -1,4 +1,5 @@
 ﻿using AdventOfCode.Day_1;
+using AdventOfCode.Day_2;
 using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace AdventOfCode
         public static List<Day> days = new List<Day>()
             {
                 new Day1(),
-                //new Day2(),
+                new Day2(),
                 //new Day3(),
                 //new Day4(),
                 //new Day5(),
