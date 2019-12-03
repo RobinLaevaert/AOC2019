@@ -1,6 +1,7 @@
 ﻿using AdventOfCode.Day_1;
 using AdventOfCode.Day_2;
 using AdventOfCode.Day_3;
+using AdventOfCode.Day_4;
 using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace AdventOfCode
                 new Day1(),
                 new Day2(),
                 new Day3(),
-                //new Day4(),
+                new Day4(),
                 //new Day5(),
                 //new Day6(),
                 //new Day7(),
