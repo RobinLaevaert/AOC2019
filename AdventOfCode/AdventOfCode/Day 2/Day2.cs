@@ -47,9 +47,11 @@ namespace AdventOfCode.Day_2
             {
                 for (int j = 0; j < 99; j++)
                 {
-                    var set = new List<int>(Code);
-                    set[1] = i;
-                    set[2] = j;
+                    var set = new List<int>(Code)
+                    {
+                        [1] = i,
+                        [2] = j
+                    };
                     Compute(set);
                     if (set.First() == 19690720)
                     {

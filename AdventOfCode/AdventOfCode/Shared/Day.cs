@@ -14,7 +14,7 @@ namespace AdventOfCode.Shared
         public Day()
         {
         }
-        public void printInfo()
+        public void PrintInfo()
         {
             Console.WriteLine($"{dayNumber}. {Title}");
         }

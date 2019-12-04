@@ -46,11 +46,12 @@ namespace AdventOfCode
             while (true)
             {
                 Console.WriteLine("Which Day do you want ?");
-                days.ForEach(x => x.printInfo());
+                days.ForEach(x => x.PrintInfo());
                 var chosenDay = Convert.ToInt32(Console.ReadLine()) - 1;
                 days[chosenDay].HandleSelect();
                 days[chosenDay].Deselect();
             }
         }
     }
+
 }

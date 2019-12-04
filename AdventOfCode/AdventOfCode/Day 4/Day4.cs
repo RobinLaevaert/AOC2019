@@ -26,7 +26,9 @@ namespace AdventOfCode.Day_4
 
         public override void Part2()
         {
-            throw new NotImplementedException();
+            ReadFile();
+            var answer = range.Where(x => CheckForPart2(x) && DoesNotDecrease(x)).ToList();
+            System.Console.WriteLine($"The number of passwords is: {answer.Count()}");
         }
 
         public override void ReadFile()
@@ -41,15 +43,43 @@ namespace AdventOfCode.Day_4
         }
 
         public bool HasAdjacentDigits(int input){
-            var prev = input %10;
+            
+            var prev = input % 10;
             input /= 10;
+            
+            while (input > 0)
+                {
+                    var current = input % 10;
+                    if (current == prev)
+                        return true;
+                    prev = current;
+                    input /= 10;
+                }
+            return false;
 
-            while (input > 0){
+        }
+
+        public bool CheckForPart2(int input)
+        {
+            var freshinput = 0 + input;
+            var prev = input % 10;
+            input /= 10;
+            var counter = new int[10]
+            {
+                0,0,0,0,0,0,0,0,0,0
+            };
+
+            while (input > 0)
+            {
                 var current = input % 10;
-                if(current == prev)
-                    return true;
+                if (current == prev)
+                    counter[current]++;
                 prev = current;
                 input /= 10;
+            }
+            if (counter.Any(x => x == 1))
+            {
+                return true;
             }
             return false;
         }
