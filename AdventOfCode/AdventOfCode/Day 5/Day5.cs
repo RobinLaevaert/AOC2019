@@ -50,17 +50,17 @@ namespace AdventOfCode.Day_5
                 if (toTake == 0) break;
                 
                 temp = input.Skip(skip).Take(toTake).ToList();
-                var test = addLeadingZeroes(temp.First()).ToCharArray().Select(x => char.GetNumericValue(x)).ToList();
+                var CompleteOpCode = addLeadingZeroes(temp.First()).ToCharArray().Select(x => char.GetNumericValue(x)).ToList();
 
-                var selector = test.Last();
+                var selector = CompleteOpCode.Last();
 
                 if (selector == 1 || selector == 2 || selector == 5 || selector == 6 || selector == 7 || selector == 8)
                 {
                     
                     int param1;
                     int param2;
-                    param1 = test[2] == 0 ? input[temp[1]] : temp[1];
-                    param2 = test[1] == 0 ? input[temp[2]] : temp[2];
+                    param1 = CompleteOpCode[2] == 0 ? input[temp[1]] : temp[1];
+                    param2 = CompleteOpCode[1] == 0 ? input[temp[2]] : temp[2];
                     if (selector == 1 || selector == 2) input[temp[3]] = selector == 1 ? param1 + param2 : param1 * param2;
                     if( selector == 5 && param1 != 0)
                     {
