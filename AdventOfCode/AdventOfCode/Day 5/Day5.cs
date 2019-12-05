@@ -88,7 +88,8 @@ namespace AdventOfCode.Day_5
                 }
                 if (selector == 4)
                 {
-                    Output.Add(input[temp.Last()]);
+                    var param1 = CompleteOpCode[2] == 0 ? input[temp[1]] : temp[1];
+                    Output.Add(param1);
                 }
                 
                 
