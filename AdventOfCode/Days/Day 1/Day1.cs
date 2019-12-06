@@ -1,18 +1,18 @@
-﻿using AdventOfCode.Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using Shared;
 
-namespace AdventOfCode.Day_1
+
+namespace Day_1
 {
     public class Day1 : Day
     {
         public List<double> input { get; set; }
         public Day1()
         {
-            dayNumber = 1;
+            DayNumber = 1;
             Title = "The Tyranny of the Rocket Equation";
         }
 
@@ -32,7 +32,7 @@ namespace AdventOfCode.Day_1
 
         public override void ReadFile()
         {
-            input = File.ReadAllLines(GetFilePath()).Select(x => Convert.ToDouble(x)).ToList();
+            input = File.ReadAllLines(StandardPath).Select(Convert.ToDouble).ToList();
         }
 
         private double getFuelCost(double input, int part)

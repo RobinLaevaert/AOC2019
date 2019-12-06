@@ -1,12 +1,11 @@
 ﻿using System;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Diagnostics.CodeAnalysis;
+using Shared;
 
-namespace AdventOfCode.Day_3
+namespace Day_3
 {
     public class Day3 : Day
     {
@@ -15,7 +14,7 @@ namespace AdventOfCode.Day_3
 
         public Day3()
         {
-            dayNumber = 3;
+            DayNumber = 3;
             Title = "Crossed Wires";
         }
         public override void Part1()
@@ -50,7 +49,7 @@ namespace AdventOfCode.Day_3
 
         public override void ReadFile()
         {
-            var temp = File.ReadAllLines(GetFilePath());
+            var temp = File.ReadAllLines(StandardPath);
             Wire1 = temp[0].Split(',').Select(x => new PathInstruction
             {
                 Direction = x[0],
@@ -84,7 +83,7 @@ namespace AdventOfCode.Day_3
                         tempy += instruction.Distance;
                         break;
                     case 'D':
-                        tempy -= instruction.Distance; 
+                        tempy -= instruction.Distance;
                         break;
                 }
 
@@ -96,7 +95,7 @@ namespace AdventOfCode.Day_3
                     if (tempy > y) y++;
                     if (tempy < y) y--;
                 }
-                
+
             });
             return output;
 
@@ -113,13 +112,14 @@ namespace AdventOfCode.Day_3
         }
     }
 
-   
-    public class PathInstruction{
+
+    public class PathInstruction
+    {
         public char Direction { get; set; }
         public int Distance { get; set; }
     }
 
-    public class coord: IEquatable<coord>
+    public class coord : IEquatable<coord>
     {
         public int x { get; set; }
         public int y { get; set; }

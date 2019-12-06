@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Text;
 
-namespace AdventOfCode.Shared
+namespace Shared
 {
     public abstract class Day
     {
         public string Title;
-        public int dayNumber;
+        public int DayNumber;
+
+        public string StandardPath = @"input.txt";
 
         public Day()
         {
         }
         public void PrintInfo()
         {
-            Console.WriteLine($"{dayNumber}. {Title}");
+            Console.WriteLine($"{DayNumber}. {Title}");
         }
 
         public void HandleSelect()

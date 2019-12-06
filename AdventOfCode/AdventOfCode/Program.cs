@@ -1,14 +1,16 @@
-﻿using AdventOfCode.Day_1;
-using AdventOfCode.Day_2;
-using AdventOfCode.Day_3;
-using AdventOfCode.Day_4;
-using AdventOfCode.Day_5;
-using AdventOfCode.Day_6;
-using AdventOfCode.Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
+using System.Linq;
+using System.Threading.Channels;
+using Day_1;
+using Day_2;
+using Day_3;
+using Day_4;
+using Day_5;
+using Day_6;
+using Day_7;
+using Shared;
 
 namespace AdventOfCode
 {
@@ -22,7 +24,7 @@ namespace AdventOfCode
                 new Day4(),
                 new Day5(),
                 new Day6(),
-                //new Day7(),
+                new Day7(),
                 //new Day8(),
                 //new Day9(),
                 //new Day10(),

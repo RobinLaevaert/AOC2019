@@ -1,32 +1,18 @@
-﻿using AdventOfCode.Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using Shared;
 
-namespace AdventOfCode.Day_2
+namespace Day_2
 {
-
-    /// <summary>
-    /// 
-    ///  4 Digits per code
-    ///  1st is Opcode 1/2/99 
-    ///     1 => addition
-    ///     2 => multiplication
-    ///     99 => END
-    ///     
-    ///  2nd and 3th number are positions of the numbers to calculate with
-    ///  
-    ///  4th is the place where to put the result
-    /// </summary>
-    class Day2 : Day
+    public class Day2: Day
     {
         public List<int> Code;
 
         public Day2()
         {
-            dayNumber = 2;
+            DayNumber = 2;
             Title = "1202 Program Alarm";
         }
         public override void Part1()
@@ -65,7 +51,7 @@ namespace AdventOfCode.Day_2
 
         public override void ReadFile()
         {
-            Code = File.ReadAllText(GetFilePath()).Split(',').Select(x => Convert.ToInt32(x)).ToList();
+            Code = File.ReadAllText(StandardPath).Split(',').Select(x => Convert.ToInt32(x)).ToList();
         }
 
         private List<int> Compute(List<int> input)
