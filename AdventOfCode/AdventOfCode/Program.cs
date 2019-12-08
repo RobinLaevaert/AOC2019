@@ -11,6 +11,7 @@ using Day_5;
 using Day_6;
 using Day_7;
 using Day_8;
+using Day_9;
 using Shared;
 
 namespace AdventOfCode
@@ -27,7 +28,7 @@ namespace AdventOfCode
                 new Day6(),
                 new Day7(),
                 new Day8(),
-                //new Day9(),
+                new Day9(),
                 //new Day10(),
                 //new Day11(),
                 //new Day12(),

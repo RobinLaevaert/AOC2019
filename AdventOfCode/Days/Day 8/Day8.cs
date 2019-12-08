@@ -108,6 +108,9 @@ namespace Day_8
             }
 
             var reformat = Restruc.Select(x => string.Join("", x));
+            Console.WriteLine("Answer: ");
+            Console.WriteLine();
+            Console.WriteLine();
             foreach (var s in reformat)
             {
                 foreach (var c in s.ToCharArray())
@@ -118,6 +121,8 @@ namespace Day_8
                 Console.Write(System.Environment.NewLine);
             }
             Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 }
