@@ -6,17 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="input8.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="input8.txt">
+    <None Update="input8.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
 
 </Project>
