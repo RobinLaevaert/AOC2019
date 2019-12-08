@@ -13,6 +13,7 @@
     <ProjectReference Include="..\Days\Day 5\Day 5.csproj" />
     <ProjectReference Include="..\Days\Day 6\Day 6.csproj" />
     <ProjectReference Include="..\Days\Day 7\Day 7.csproj" />
+    <ProjectReference Include="..\Days\Day 8\Day 8.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
