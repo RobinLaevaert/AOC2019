@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 
 namespace Shared
 {
@@ -7,7 +9,6 @@ namespace Shared
         public string Title;
         public int DayNumber;
 
-        public string StandardPath = @"input.txt";
 
         public Day()
         {
@@ -43,8 +44,7 @@ namespace Shared
         }
         public string GetFilePath()
         {
-            Console.WriteLine($"What is the path for input file?");
-            return Console.ReadLine();
+            return  Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $@"input{DayNumber}.txt");
         }
         public abstract void ReadFile();
 

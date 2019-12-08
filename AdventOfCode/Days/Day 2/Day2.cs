@@ -51,7 +51,7 @@ namespace Day_2
 
         public override void ReadFile()
         {
-            Code = File.ReadAllText(StandardPath).Split(',').Select(x => Convert.ToInt32(x)).ToList();
+            Code = File.ReadAllText(GetFilePath()).Split(',').Select(x => Convert.ToInt32(x)).ToList();
         }
 
         private List<int> Compute(List<int> input)

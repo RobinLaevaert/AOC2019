@@ -9,8 +9,7 @@ namespace Day_5
     public class Day5 : Day
     {
         public List<int> Code;
-        public List<int> Output = new List<int>();
-        public int secret;
+        
 
         public Day5()
         {
@@ -21,7 +20,7 @@ namespace Day_5
         public override void Part1()
         {
             ReadFile();
-            Console.WriteLine($"The code is: {Compute(Code).Last()}"); ;
+            Console.WriteLine($"The code is: {Compute(Code, Convert.ToInt32(Console.ReadLine())).Last()}"); ;
 
         }
 
@@ -32,16 +31,15 @@ namespace Day_5
 
         public override void ReadFile()
         {
-            Code = File.ReadAllText(StandardPath).Split(',').Select(x => Convert.ToInt32(x)).ToList();
+            Code = File.ReadAllText(GetFilePath()).Split(',').Select(x => Convert.ToInt32(x)).ToList();
             Console.WriteLine($"What is the secret input?");
-            secret = Convert.ToInt32(Console.ReadLine());
         }
 
-        private List<int> Compute(List<int> input)
+        private List<int> Compute(List<int> input, int secret)
         {
             var running = true;
             var skip = 0;
-
+            List<int> Output = new List<int>();
             while (running)
             {
                 var temp = input.Skip(skip).ToList();

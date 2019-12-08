@@ -32,7 +32,7 @@ namespace Day_1
 
         public override void ReadFile()
         {
-            input = File.ReadAllLines(StandardPath).Select(Convert.ToDouble).ToList();
+            input = File.ReadAllLines(GetFilePath()).Select(Convert.ToDouble).ToList();
         }
 
         private double getFuelCost(double input, int part)

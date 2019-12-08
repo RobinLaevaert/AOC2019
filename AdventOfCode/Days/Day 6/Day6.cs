@@ -38,7 +38,7 @@ namespace Day_6
 
         public override void ReadFile()
         {
-            input = File.ReadAllLines(StandardPath).Select(x => new CustomOrbit(x)).ToList();
+            input = File.ReadAllLines(GetFilePath()).Select(x => new CustomOrbit(x)).ToList();
         }
 
         public int GetStepsToCom(CustomOrbit orbit)

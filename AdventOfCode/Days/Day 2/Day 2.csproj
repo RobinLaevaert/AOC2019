@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="input2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

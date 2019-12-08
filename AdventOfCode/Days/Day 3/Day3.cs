@@ -49,7 +49,7 @@ namespace Day_3
 
         public override void ReadFile()
         {
-            var temp = File.ReadAllLines(StandardPath);
+            var temp = File.ReadAllLines(GetFilePath());
             Wire1 = temp[0].Split(',').Select(x => new PathInstruction
             {
                 Direction = x[0],
