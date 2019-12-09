@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Day 9\Day 9.csproj" />
+    <ProjectReference Include="..\Days\Day 10\Day 10.csproj" />
     <ProjectReference Include="..\Days\Day 1\Day 1.csproj" />
     <ProjectReference Include="..\Days\Day 2\Day 2.csproj" />
     <ProjectReference Include="..\Days\Day 3\Day 3.csproj" />
@@ -15,6 +15,7 @@
     <ProjectReference Include="..\Days\Day 6\Day 6.csproj" />
     <ProjectReference Include="..\Days\Day 7\Day 7.csproj" />
     <ProjectReference Include="..\Days\Day 8\Day 8.csproj" />
+    <ProjectReference Include="..\Days\Day 9\Day 9.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 

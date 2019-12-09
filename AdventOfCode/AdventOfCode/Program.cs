@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Channels;
 using Day_1;
+using Day_10;
 using Day_2;
 using Day_3;
 using Day_4;
@@ -29,7 +30,7 @@ namespace AdventOfCode
                 new Day7(),
                 new Day8(),
                 new Day9(),
-                //new Day10(),
+                new Day10(),
                 //new Day11(),
                 //new Day12(),
                 //new Day13(),

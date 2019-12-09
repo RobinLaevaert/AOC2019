@@ -110,11 +110,26 @@ namespace Day_7
                 var selector = code[pointer] % 10;
                 var CompleteOpCode = addLeadingZeroes(code[pointer]).ToCharArray().Select(char.GetNumericValue).Select(Convert.ToInt32).ToList();
 
+                int getParam1()
+                {
+                    if (CompleteOpCode[2] == 0) return code[code[pointer + 1]];
+                    if (CompleteOpCode[2] == 1) return code[pointer + 1];
+                    if (CompleteOpCode[2] == 2) return 7;
+                    return 0;
+                }
+                int getParam2()
+                {
+                    if (CompleteOpCode[1] == 0) return code[code[pointer + 2]];
+                    if (CompleteOpCode[1] == 1) return code[pointer + 2];
+                    if (CompleteOpCode[1] == 2) return 7;
+                    return 0;
+                }
+
                 if (selector == 1 || selector == 2 || selector == 5 || selector == 6 || selector == 7 || selector == 8)
                 {
 
-                    var param1 = CompleteOpCode[2] != 0 ? code[pointer + 1] : code[code[pointer + 1]];
-                    var param2 = CompleteOpCode[1] != 0 ? code[pointer + 2] : code[code[pointer + 2]];
+                    var param1 = getParam1();
+                    var param2 = getParam2();
                     if (selector == 1 || selector == 2)
                     {
                         code[code[pointer + 3]] = selector == 1 ? param1 + param2 : param1 * param2;
@@ -147,7 +162,7 @@ namespace Day_7
                 }
                 if (selector == 4)
                 {
-                    output.Post(CompleteOpCode[2] != 0 ? code[pointer + 1] : code[code[pointer + 1]]);
+                    output.Post(getParam1());
                     pointer += 2;
                 }
             }
@@ -216,6 +231,8 @@ namespace Day_7
             }
             return Output;
         }
+
+
 
         private int getToTake(int number)
         {
