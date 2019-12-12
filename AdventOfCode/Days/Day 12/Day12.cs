@@ -1,8 +1,11 @@
 ﻿using Shared;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Day_12
 {
@@ -21,7 +24,7 @@ namespace Day_12
             var step = 0;
             Console.WriteLine("After 0 steps");
             Moons.ToList().ForEach(x => x.Print());
-            while (step <= 9999)
+            while (step <= 999)
             {
                 Console.WriteLine($"After step {step}:");
                 Console.WriteLine();
@@ -33,9 +36,115 @@ namespace Day_12
             File.WriteAllLines(@"output12.txt", output);
         }
 
+        public long indexX = 1;
+        public long indexY = 1;
+        public long indexZ = 1;
+        ConcurrentBag<long> hitsX = new ConcurrentBag<long>();
+        ConcurrentBag<long> hitsY = new ConcurrentBag<long>();
+        ConcurrentBag<long> hitsZ = new ConcurrentBag<long>();
         public override void Part2()
         {
-            throw new NotImplementedException();
+            ReadFile();
+            var XCoordsAndVel = Moons.Select(x => coord.Create(x.Coordinates.X, 0)).ToList();
+            var YCoordsAndVel = Moons.Select(x => coord.Create(x.Coordinates.Y, 0)).ToList();
+            var ZCoordsAndVel = Moons.Select(x => coord.Create(x.Coordinates.Z, 0)).ToList();
+
+            var found = false;
+            long temp = 0;
+
+            while (!found)
+            {
+                Parallel.Invoke(
+                    () => Xcoords(),
+                    () => Ycoords(),
+                    () => ZCoords());
+
+                if (hitsX.ToList().Any() &&
+                    hitsY.ToList().Any() &&
+                    hitsZ.ToList().Any())
+                {
+                    var answer = GetLeastCommonMultiplier(
+                        GetLeastCommonMultiplier(hitsX.ToList().OrderBy(x => x).First(), hitsY.ToList().OrderBy(x => x).First()),
+                        hitsZ.ToList().OrderBy(x => x).First());
+                    found = true;
+                    Console.WriteLine($"{answer}");
+                }
+
+            }
+
+            void Xcoords()
+            {
+                var start = 0 + indexX;
+                var end = 1000000 + start;
+                while (indexX < end)
+                {
+                    XCoordsAndVel.ForEach(x => { x.UpdateVelocity(XCoordsAndVel.ToList()); });
+                    XCoordsAndVel.ForEach(x => { x.ApplyVelocity(); });
+
+                    if (XCoordsAndVel[0].X == Moons.ToList()[0].Coordinates.X &&
+                        XCoordsAndVel[0].Vx == Moons.ToList()[0].Velocity.X &&
+                        XCoordsAndVel[1].X == Moons.ToList()[1].Coordinates.X &&
+                        XCoordsAndVel[1].Vx == Moons.ToList()[1].Velocity.X &&
+                        XCoordsAndVel[2].X == Moons.ToList()[2].Coordinates.X &&
+                        XCoordsAndVel[2].Vx == Moons.ToList()[2].Velocity.X &&
+                        XCoordsAndVel[3].X == Moons.ToList()[3].Coordinates.X &&
+                        XCoordsAndVel[3].Vx == Moons.ToList()[3].Velocity.X)
+                    {
+                        hitsX.Add(indexX);
+                    }
+                    indexX++;
+                    
+                }
+            }
+            void Ycoords()
+            {
+                var start = 0 + indexY;
+                var end = 1000000 + start;
+                while (indexY < end)
+                {
+                    YCoordsAndVel.ForEach(x => { x.UpdateVelocity(YCoordsAndVel.ToList()); });
+                    YCoordsAndVel.ForEach(x => { x.ApplyVelocity(); });
+                    if (YCoordsAndVel[0].X == Moons.ToList()[0].Coordinates.Y &&
+                        YCoordsAndVel[0].Vx == Moons.ToList()[0].Velocity.Y &&
+                        YCoordsAndVel[1].X == Moons.ToList()[1].Coordinates.Y &&
+                        YCoordsAndVel[1].Vx == Moons.ToList()[1].Velocity.Y &&
+                        YCoordsAndVel[2].X == Moons.ToList()[2].Coordinates.Y &&
+                        YCoordsAndVel[2].Vx == Moons.ToList()[2].Velocity.Y &&
+                        YCoordsAndVel[3].X == Moons.ToList()[3].Coordinates.Y &&
+                        YCoordsAndVel[3].Vx == Moons.ToList()[3].Velocity.Y)
+                    {
+                        hitsY.Add(indexY);
+                    }
+
+                    indexY++;
+                    
+                }
+            }
+
+            void ZCoords()
+            {
+                var start = 0 + indexZ;
+                var end = 1000000 + start;
+                while (indexZ < end)
+                {
+                    ZCoordsAndVel.ForEach(x => { x.UpdateVelocity(ZCoordsAndVel.ToList()); });
+                    ZCoordsAndVel.ForEach(x => { x.ApplyVelocity(); });
+                    if (ZCoordsAndVel[0].X == Moons.ToList()[0].Coordinates.Z &&
+                        ZCoordsAndVel[0].Vx == Moons.ToList()[0].Velocity.Z &&
+                        ZCoordsAndVel[1].X == Moons.ToList()[1].Coordinates.Z &&
+                        ZCoordsAndVel[1].Vx == Moons.ToList()[1].Velocity.Z &&
+                        ZCoordsAndVel[2].X == Moons.ToList()[2].Coordinates.Z &&
+                        ZCoordsAndVel[2].Vx == Moons.ToList()[2].Velocity.Z &&
+                        ZCoordsAndVel[3].X == Moons.ToList()[3].Coordinates.Z &&
+                        ZCoordsAndVel[3].Vx == Moons.ToList()[3].Velocity.Z)
+                    {
+                        hitsZ.Add(indexZ);
+                    }
+
+                    indexZ++;
+                    
+                }
+            }
         }
 
         public override void ReadFile()
@@ -64,114 +173,52 @@ namespace Day_12
                 x.CalculateEnergy();
                 x.PrintEnergy();
             });
-            //Console.WriteLine($"Sum of total energy: {Moons.ToList()[0].TotalEnergy} + {Moons.ToList()[1].TotalEnergy} + {Moons.ToList()[2].TotalEnergy} * {Moons.ToList()[3].TotalEnergy} = {Moons.Sum(x => x.TotalEnergy)}");
-
-
+            Console.WriteLine($"Sum of total energy: {Moons.ToList()[0].TotalEnergy} + {Moons.ToList()[1].TotalEnergy} + {Moons.ToList()[2].TotalEnergy} * {Moons.ToList()[3].TotalEnergy} = {Moons.Sum(x => x.TotalEnergy)}");
         }
-        public class Moon
+
+        public long GetLeastCommonMultiplier(long a, long b)
         {
-            private Moon()
+            return (a / GetGreatestCommonFactor(a, b)) * b;
+        }
+
+        static long GetGreatestCommonFactor(long a, long b)
+        {
+            while (b != 0)
             {
-                Velocity = new Velocity();
-                Coordinates = new Coord();
+                long temp = b;
+                b = a % b;
+                a = temp;
             }
-            public Velocity Velocity { get; set; }
+            return a;
+        }
 
-            public Coord Coordinates { get; set; }
-            public int KineticEnergy { get; set; }
-            public int PotentialEnergy { get; set; }
-            public int TotalEnergy { get; set; }
+        public class coord
+        {
+            public int X;
+            public int Vx;
 
-            public void ApplyVelocity()
+            public void UpdateVelocity(List<coord> coords)
             {
-                Coordinates.ApplyVelocity(Velocity);
-            }
-
-            public void AdjustVelocity(List<Moon> otherMoons)
-            {
-                otherMoons.ForEach(otherMoon =>
+                coords.ForEach(x =>
                 {
-                    if (Coordinates.X != otherMoon.Coordinates.X)
-                    {
-                        if (otherMoon.Coordinates.X > Coordinates.X) Velocity.X++;
-                        if (otherMoon.Coordinates.X < Coordinates.X) Velocity.X--;
-                    }
-                    if (Coordinates.Y != otherMoon.Coordinates.Y)
-                    {
-                        if (otherMoon.Coordinates.Y > Coordinates.Y) Velocity.Y++;
-                        if (otherMoon.Coordinates.Y < Coordinates.Y) Velocity.Y--;
-                    }
-                    if (Coordinates.Z != otherMoon.Coordinates.Z)
-                    {
-                        if (otherMoon.Coordinates.Z > Coordinates.Z) Velocity.Z++;
-                        if (otherMoon.Coordinates.Z < Coordinates.Z) Velocity.Z--;
-                    }
+                    if (x.X > X) Vx++;
+                    if (x.X < X) Vx--;
                 });
             }
 
-            public void Step(List<Moon> otherMoons)
+            public void ApplyVelocity()
             {
-                otherMoons = otherMoons.Where(x => x != this).ToList();
-                AdjustVelocity(otherMoons);
-                ApplyVelocity();
+                X += Vx;
             }
 
-            public static Moon Create(int x, int y, int z)
+            public static coord Create(int pos, int velocity)
             {
-                var moon = new Moon();
-                moon.Coordinates.Set(x, y, z);
-                return moon;
+                return new coord()
+                {
+                    X = pos,
+                    Vx = velocity
+                };
             }
-
-            public void CalculateEnergy()
-            {
-                PotentialEnergy = Math.Abs(Coordinates.X) + Math.Abs(Coordinates.Y) + Math.Abs(Coordinates.Z);
-                KineticEnergy = Math.Abs(Velocity.X) + Math.Abs(Velocity.Y) + Math.Abs(Velocity.Z);
-                TotalEnergy = PotentialEnergy * KineticEnergy;
-            }
-
-            public void Print()
-            {
-                Console.WriteLine($"pos=<x= {Coordinates.X.ToString().PadLeft(3)}, y=  {Coordinates.Y.ToString().PadLeft(3)}, z= {Coordinates.Z.ToString().PadLeft(3)}>, vel=<x= {Velocity.X.ToString().PadLeft(3)}, y= {Velocity.Y.ToString().PadLeft(3)}, z= {Velocity.Z.ToString().PadLeft(3)}>");
-            }
-
-            public void PrintEnergy()
-            {
-                Console.WriteLine($"Pot: {Coordinates.X.ToString().PadLeft(3)} + {Coordinates.Y.ToString().PadLeft(3)} + {Coordinates.Z.ToString().PadLeft(3)} = {PotentialEnergy.ToString().PadLeft(3)}; Kin: {Velocity.X.ToString().PadLeft(3)} + {Velocity.Y.ToString().PadLeft(3)} + {Velocity.Z.ToString().PadLeft(3)} = {KineticEnergy.ToString().PadLeft(3)}; Total: {PotentialEnergy.ToString().PadLeft(3)} + {KineticEnergy.ToString().PadLeft(3)} = {TotalEnergy.ToString().PadLeft(3)}");
-            }
-
-            public string output()
-            {
-                return $"{Coordinates.X},{Coordinates.Y},{Coordinates.Z},{Velocity.X},{Velocity.Y},{Velocity.Z},{KineticEnergy},{PotentialEnergy},{TotalEnergy}";
-            }
-        }
-
-        public class Coord
-        {
-            public int X { get; set; }
-            public int Y { get; set; }
-            public int Z { get; set; }
-
-            public void ApplyVelocity(Velocity velocity)
-            {
-                X += velocity.X;
-                Y += velocity.Y;
-                Z += velocity.Z;
-            }
-
-            public void Set(int x, int y, int z)
-            {
-                X = x;
-                Y = y;
-                Z = z;
-            }
-        }
-
-        public class Velocity
-        {
-            public int X { get; set; }
-            public int Y { get; set; }
-            public int Z { get; set; }
         }
     }
 }
