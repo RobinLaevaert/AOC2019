@@ -4,6 +4,7 @@ using Day_1;
 using Day_10;
 using Day_11;
 using Day_12;
+using Day_13;
 using Day_2;
 using Day_3;
 using Day_4;
@@ -32,7 +33,7 @@ namespace AdventOfCode
                 new Day10(),
                 new Day11(),
                 new Day12(),
-                //new Day13(),
+                new Day13(),
                 //new Day14(),
                 //new Day15(),
                 //new Day16(),
