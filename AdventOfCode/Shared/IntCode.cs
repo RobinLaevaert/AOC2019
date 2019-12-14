@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 
 namespace Shared
@@ -25,7 +26,7 @@ namespace Shared
             Memory = new List<long>(initialMemory);
         }
 
-        public List<long> Run()
+        public List<long>  Run()
         {
             var output = new List<long>();
             while (running)
@@ -48,6 +49,28 @@ namespace Shared
             return output;
         }
 
+        public async Task<List<long>> asyncRun()
+        {
+            var output = new List<long>();
+            while (running)
+            {
+                int opcode = (int)(Get(Pointer) % 100);
+                switch (opcode)
+                {
+                    case 1: Addition(); break;
+                    case 2: Multiplication(); break;
+                    case 3: await Input(); break;
+                    case 4: Output(); break;
+                    case 5: Jump(true); break;
+                    case 6: Jump(false); break;
+                    case 7: LessThan(); break;
+                    case 8: Equals(); break;
+                    case 9: SetRelativeBase(); break;
+                    case 99: running = false; break;
+                }
+            }
+            return output;
+        }
         private void Addition()
         {
             SetRelative(3, GetRelative(1) + GetRelative(2));
@@ -60,9 +83,9 @@ namespace Shared
             Pointer += 4;
         }
 
-        private void Input()
+        private async Task Input()
         {
-            SetRelative(1, InputBufferBlock.Receive());
+            SetRelative(1, await InputBufferBlock.ReceiveAsync());
             Pointer += 2;
         }
 
