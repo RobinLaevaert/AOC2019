@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using Shared;
@@ -12,8 +13,7 @@ namespace Day_14
     public class Day14 : Day
     {
         public List<Recipe> Recipes;
-        public List<Ingredient> Waste;
-        
+
         public Day14()
         {
             DayNumber = 14;
@@ -29,16 +29,37 @@ namespace Day_14
         public override void Part1()
         {
             ReadFile();
+            
+            Console.WriteLine($"Total Ores needed : {Calculate()}");
+        }
+
+        public long Calculate()
+        {
             var endRecipe = Recipes.First(x => x.EndProduct.Element == "FUEL");
-            CalculateCost(endRecipe);
+            endRecipe.inputIngredients.ForEach(x => x.Amount *= endRecipe.EndProduct.Amount);
+            return CalculateCost(endRecipe);
         }
 
         public override void Part2()
         {
-            throw new NotImplementedException();
+            
+            long cost = 0;
+            var fuel = 2140000;
+            while (cost < 1000000000000)
+            {
+                ReadFile();
+                var endRecipe = Recipes.First(x => x.EndProduct.Element == "FUEL");
+                endRecipe.EndProduct.Amount = fuel;
+                cost = Calculate();
+                Console.WriteLine($"Cost for {fuel} Fuel: {cost} ORES");
+                fuel+=1;
+                
+            }
+
+            Console.WriteLine($"Maximum fuel is : {fuel - 2}");
         }
 
-        public void CalculateCost(Recipe recipe)
+        public long CalculateCost(Recipe recipe)
         {
             var neededIngredients = new List<Ingredient>();
             var ExcessIngredients = new List<Ingredient>();
@@ -55,7 +76,9 @@ namespace Day_14
             while (neededIngredients.Count > 0)
             {
                 neededIngredients = neededIngredients.OrderByDescending(x => GetStepsToOre(x, Recipes)).ToList();
-                if (neededIngredients[0].Amount == 0) neededIngredients.Remove(neededIngredients[0]);
+                if (neededIngredients[0].Amount == 0) {neededIngredients.Remove(neededIngredients[0]);
+                    continue;
+                }
                 var test = GetIngredientsForElement(neededIngredients[0]);
 
                 if(test.ExcessIngredient > 0) AddExcess(neededIngredients[0], test.ExcessIngredient);
@@ -69,7 +92,7 @@ namespace Day_14
                 neededIngredients.Remove(neededIngredients[0]);
             }
 
-            Console.WriteLine($"Needed Amount of Ore = {amountOfOre}");
+            return amountOfOre;
 
             void checkForExcess(Ingredient ingredient)
             {
@@ -143,14 +166,17 @@ namespace Day_14
 
         public long GetLeastCommonMultiplier(long a, long b)
         {
-            var counter = 1;
-            var temp = a;
-            while (b > temp)
-            {
-                temp += a;
-            }
+            //var temp = a;
+            //while (b > temp)
+            //{
+            //    temp += a;
+            //}
 
-            return temp;
+            //return temp;
+
+
+            return ((long)Math.Ceiling((float)b / (float)a)*a);
+
         }
         public long GetStepsToOre(Ingredient ingredient, List<Recipe> recipes)
         {
@@ -183,6 +209,14 @@ namespace Day_14
             return recipe;
         }
 
+        public Recipe Clone()
+        {
+            var newRecipe = new Recipe();
+            newRecipe.inputIngredients = this.inputIngredients.Select(x => x.Clone()).ToList();
+            newRecipe.EndProduct = this.EndProduct.Clone();
+            return newRecipe;
+        }
+
     }
 
     public class Ingredient
@@ -197,6 +231,14 @@ namespace Day_14
             ingredient.Amount = long.Parse(SplittedInput[0]);
             ingredient.Element = SplittedInput[1];
             return ingredient;
+        }
+
+        public Ingredient Clone()
+        {
+            var newIngredient = new Ingredient();
+            newIngredient.Amount = this.Amount;
+            newIngredient.Element = this.Element;
+            return newIngredient;
         }
 
         
