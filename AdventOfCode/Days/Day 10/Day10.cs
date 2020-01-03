@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Reflection.Metadata.Ecma335;
 using Shared;
 
 namespace Day_10
@@ -93,13 +91,13 @@ namespace Day_10
             {
                 if (!asteroid.Equals(originPoint))
                 {
-                    var angle = ComputeAngle(originPoint, asteroid);
+                    var asteroidangle = ComputeAngle(originPoint, asteroid);
                     temp.Add(new placeholder
                     {
-                        Angle = angle,
+                        Angle = asteroidangle,
                         coord = asteroid
                     });
-                    angles.Add(angle);
+                    angles.Add(asteroidangle);
                 }
             });
             var test = angles.OrderBy(x => x);

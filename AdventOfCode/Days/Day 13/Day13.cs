@@ -1,9 +1,9 @@
-﻿using Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks.Dataflow;
+using Shared;
 
 namespace Day_13
 {
@@ -48,16 +48,18 @@ namespace Day_13
             inputBuffer = new BufferBlock<long>();
             for (int i = 0; i < 1000; i++)
             {
-                inputBuffer.Post(0);
+                inputBuffer.Post(-1);
             }
             outputBuffer = new BufferBlock<long>();
             
             Console.Clear();
             var numberOfBlocksRemaining = 9999999;
+            
             while (numberOfBlocksRemaining != 0)
             {
+                Console.ReadKey();
                 Console.Clear();
-                var tempInput = new List<long>(Input);
+
                 var computer = new IntCode(Input, inputBuffer, outputBuffer);
                 computer.Run();
                 var outputList = new List<long>();
@@ -77,7 +79,7 @@ namespace Day_13
                 numberOfBlocksRemaining = actualField.Count(x => x.Type == 2);
 
                 var ballPosition = actualField.First(x => x.Type == 4);
-                var PaddlePosition = actualField.First(x => x.Type == 4);
+                var PaddlePosition = actualField.First(x => x.Type == 3);
                 var toMove = ballPosition.xPos - PaddlePosition.xPos;
                 var toMoveWay = toMove > 0;
 

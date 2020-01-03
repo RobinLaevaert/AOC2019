@@ -2,15 +2,17 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Day 14\Day 14.csproj" />
     <ProjectReference Include="..\Days\Day 10\Day 10.csproj" />
     <ProjectReference Include="..\Days\Day 12\Day 12.csproj" />
     <ProjectReference Include="..\Days\Day 13\Day 13.csproj" />
+    <ProjectReference Include="..\Days\Day 16\Day 16.csproj" />
     <ProjectReference Include="..\Days\Day 1\Day 1.csproj" />
+    <ProjectReference Include="..\Days\Day 22\Day 22.csproj" />
+    <ProjectReference Include="..\Days\Day 24\Day 24.csproj" />
     <ProjectReference Include="..\Days\Day 2\Day 2.csproj" />
     <ProjectReference Include="..\Days\Day 3\Day 3.csproj" />
     <ProjectReference Include="..\Days\Day 4\Day 4.csproj" />

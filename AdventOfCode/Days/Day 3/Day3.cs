@@ -41,10 +41,17 @@ namespace Day_3
 
             var steps = intersections.Select(x =>
             {
-                return WirePath1.First(y => y.Equals(x)).stepsTaken + WirePath2.First(y => y.Equals(x)).stepsTaken;
-            }).OrderBy(x => x).Skip(1);
+                 return new coord
+                {
+                    x = x.x,
+                    y = x.y,
+                    stepsTaken = WirePath1.First(y => y.Equals(x)).stepsTaken +
+                                 WirePath2.First(y => y.Equals(x)).stepsTaken
+                };
+            }).OrderBy(x => x.stepsTaken).Skip(1);
 
-            Console.WriteLine($"Fewest combined steps is: {steps.First()}");
+            
+            Console.WriteLine($"Fewest combined steps is: {steps.First().stepsTaken}");
         }
 
         public override void ReadFile()

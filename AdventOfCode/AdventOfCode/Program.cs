@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Day_1;
 using Day_10;
 using Day_11;
 using Day_12;
 using Day_13;
-using Day_14;
+using Day_16;
 using Day_2;
+using Day_22;
+using Day_24;
 using Day_3;
 using Day_4;
 using Day_5;
@@ -15,6 +18,7 @@ using Day_7;
 using Day_8;
 using Day_9;
 using Shared;
+
 
 namespace AdventOfCode
 {
@@ -35,19 +39,18 @@ namespace AdventOfCode
                 new Day11(),
                 new Day12(),
                 new Day13(),
-                new Day14(),
+                //new Day14(),
                 //new Day15(),
-                //new Day16(),
+                new Day16(),
                 //new Day17(),
                 //new Day18(),
                 //new Day19(),
                 //new Day20(),
                 //new Day21(),
-                //new Day22(),
+                new Day22(),
                 //new Day23(),
-                //new Day24(),
+                new Day24(),
                 //new Day25(),
-
             };
         static void Main(string[] args)
         {
@@ -55,10 +58,11 @@ namespace AdventOfCode
             {
                 Console.WriteLine("Which Day do you want ?");
                 days.ForEach(x => x.PrintInfo());
-                var chosenDay = Convert.ToInt32(Console.ReadLine()) - 1;
-                days[chosenDay].HandleSelect();
-                days[chosenDay].Deselect();
+                var chosenDay = Convert.ToInt32(Console.ReadLine());
+                days.First(x => x.DayNumber == chosenDay).HandleSelect();
+                days.First(x => x.DayNumber == chosenDay).Deselect();
             }
+
         }
     }
 

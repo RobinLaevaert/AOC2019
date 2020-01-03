@@ -1,22 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Day_1</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="input1.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="input1.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="input1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

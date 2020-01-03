@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Shared;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Shared;
-
 
 namespace Day_1
 {
